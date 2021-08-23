@@ -1,0 +1,20 @@
+.airports-container {
+  width: 80%;
+  margin: 50px auto auto;
+}
+
+.mat-paginator {
+  display: inline !important;
+}
+
+.mat-paginator-container .mat-paginator-outer-container {
+  display: inline !important;
+}
+
+table {
+  width: 80%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}

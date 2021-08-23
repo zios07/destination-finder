@@ -1,0 +1,47 @@
+<form>
+
+  <h2>Fare calculator</h2>
+  <div class="form-group">
+    <label for="typeahead1">Origin airport</label>
+    <input [(ngModel)]="origin"
+           id="typeahead1"
+           name="origin"
+           [typeahead]="originDataSource"
+           [typeaheadAsync]="true"
+           typeaheadOptionField="name"
+           (typeaheadLoading)="changeOriginTypeaheadLoading($event)"
+           placeholder="Origin airports"
+           (typeaheadOnSelect)="originSelected($event)"
+           class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="typeahead2">Destination airport</label>
+
+    <input [(ngModel)]="destination"
+           id="typeahead2"
+           name="destination"
+           [typeahead]="destinationDataSource"
+           [typeaheadAsync]="true"
+           typeaheadOptionField="name"
+           (typeaheadLoading)="changeDestinationTypeaheadLoading($event)"
+           placeholder="Destination airports"
+           (typeaheadOnSelect)="destinationSelected($event)"
+           class="form-control">
+  </div>
+
+  <button (click)="calculateFares()" [disabled]="origin === '' || destination === ''" class="btn btn-primary">Calculate
+    fares
+  </button>
+
+  <div class="form-group fares-container" *ngIf="!error && loaded">
+    <b>Price: </b> {{fares.amount | currency:fares.currency}}<br><br>
+    <b>Origin airport: </b> {{fares.origin.name}}<br><br>
+    <b>Destination airport: </b> {{fares.destination.name}}<br><br>
+  </div>
+
+  <div class="alert alert-danger fares-container" *ngIf="error">
+    No result available
+  </div>
+
+</form>

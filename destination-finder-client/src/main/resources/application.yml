@@ -1,0 +1,57 @@
+server:
+  port: 9000
+
+destination_api:
+  url: http://localhost:8080
+
+application:
+  host: localhost
+  name: dest-finder-client
+
+statistics:
+  metric_name: http.server.requests
+  status:
+    2xx: 200
+    4xx: 400,401,403,404,405
+    5xx: 500
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          client:
+            authorization-grant-type: client_credentials
+            client_id: travel-api-client
+            client_secret: psw
+        provider:
+          client:
+            token-uri: http://localhost:8080/oauth/token
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    io.micrometer: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "prometheus, metrics"
+  endpoint:
+    httptrace:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+
+security:
+  basic:
+    enabled: false
